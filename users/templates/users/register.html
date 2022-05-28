@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %} {% block content %} 
+{% load django_bootstrap5 %}
+<h2>Registration Form</h2>
+
+{% if request.user.is_authenticated %}
+
+<h3>Thanks for registering</h3>
+
+{% else %}
+
+<h3>Fill out the form please!</h3>
+
+<form action="" method="post" >
+  {% csrf_token %}
+  {% bootstrap_form form_user %}
+
+  {% bootstrap_button button_type="submit" content="Register" %}
+  {% bootstrap_button button_type="reset" content="Reset" %} 
+</form>
+{% endif %}
+
+{% endblock content %}
