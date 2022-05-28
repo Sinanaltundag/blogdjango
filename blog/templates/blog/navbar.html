@@ -1,0 +1,56 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-lg bg-info navbar-inverse fixed-top bg-inverse">
+<div class="container-fluid">
+  <button
+    class="navbar-toggler navbar-toggler-right"
+    type="button"
+    data-bs-toggle="collapse"
+    data-bs-target="#navbarCollapse"
+    aria-controls="navbarCollapse"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  {% comment %} <a class="navbar-brand" href="{% url 'home'  %}"> Sinan Blog</a> {% endcomment %}
+
+  <div class="collapse navbar-collapse d-flex justify-content-between fw-bold" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        {% comment %} {% url 'students' %} {% endcomment %}
+        <a class="nav-link" href="">Home</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="">About</a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+      {% if request.user.is_authenticated %} {% if request.user.is_superuser %}
+
+      <li class="nav-item active">
+        <a class="nav-link" href="/admin">Admin</a>
+      </li>
+      {% endif %}
+
+      <li class="nav-item active">
+        {% comment %} {% url 'logout' %} {% endcomment %}
+        <a class="nav-link" href="">Log Out</a>
+      </li>
+      {% else %}
+
+      <li class="nav-item active">
+        {% comment %} {% url 'user_login' %} {% endcomment %}
+        <a class="nav-link" href="">Login</a>
+      </li>
+      {% endif %}
+
+      <li class="nav-item active">
+        {% comment %} {% url 'register' %} {% endcomment %}
+        <a class="nav-link" href="">Register</a>
+      </li>
+    </ul>
+    </div>
+  </div>
+</nav>
