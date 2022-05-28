@@ -1,9 +1,9 @@
 {% load static %}
 
-<nav class="navbar navbar-expand-lg bg-info navbar-inverse fixed-top bg-inverse">
+<nav class="navbar navbar-expand-md bg-info  fixed-top ">
 <div class="container-fluid">
   <button
-    class="navbar-toggler navbar-toggler-right"
+    class="navbar-toggler navbar-toggler"
     type="button"
     data-bs-toggle="collapse"
     data-bs-target="#navbarCollapse"
@@ -13,9 +13,9 @@
   >
     <span class="navbar-toggler-icon"></span>
   </button>
-  {% comment %} <a class="navbar-brand" href="{% url 'home'  %}"> Sinan Blog</a> {% endcomment %}
+  <a class="navbar-brand" href="{% url 'home'  %}"> Sinan Blog</a>
 
-  <div class="collapse navbar-collapse d-flex justify-content-between fw-bold" id="navbarCollapse">
+  <div class="collapse navbar-collapse  fw-bold" id="navbarCollapse">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         {% comment %} {% url 'students' %} {% endcomment %}
@@ -26,7 +26,7 @@
       </li>
     </ul>
 
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ms-auto ">
       {% if request.user.is_authenticated %} {% if request.user.is_superuser %}
 
       <li class="nav-item active">
@@ -35,20 +35,21 @@
       {% endif %}
 
       <li class="nav-item active">
-        {% comment %} {% url 'logout' %} {% endcomment %}
-        <a class="nav-link" href="">Log Out</a>
+        <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+      </li>
+      <li class="nav-item active">
+        {% comment %} {% url 'add_blog' %} {% endcomment %}
+        <a class="nav-link" href="">New Post</a>
       </li>
       {% else %}
 
       <li class="nav-item active">
-        {% comment %} {% url 'user_login' %} {% endcomment %}
-        <a class="nav-link" href="">Login</a>
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
       </li>
       {% endif %}
 
       <li class="nav-item active">
-        {% comment %} {% url 'register' %} {% endcomment %}
-        <a class="nav-link" href="">Register</a>
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
       </li>
     </ul>
     </div>
