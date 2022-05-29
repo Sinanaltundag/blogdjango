@@ -24,14 +24,14 @@
 
 {# Display django.contrib.messages as Bootstrap alerts #}
 
-    {% comment %} <link rel="stylesheet" href=" {% static 'blog/css/style.css' %}  " /> {% endcomment %}
+    <link rel="stylesheet" href=" {% static 'blog/css/style2.css' %}  " />
 
     <title>Blog App Django</title>
   </head>
 
   <body>
 
-    {% include "blog/navbar.html" %}
+    {% include "navbar.html" %}
     <div style="margin-top: 100px; margin-bottom: 100px" class="container">
       {% if messages %} 
       {% for message in messages %} 
