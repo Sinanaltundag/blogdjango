@@ -10,12 +10,12 @@
 
 <img src="{{ user.profile.avatar.url }}" alt="Avatar" class="avatar">
 
-<form action="" method="post" >
+<form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {% bootstrap_form user_form %}
   {% bootstrap_form profile_form %}
-  <label class="small mb-1">Change Avatar:</label>
-                  {{ profile_form.avatar }}
+
+                 
 
   {% bootstrap_button button_type="submit" content="Update" %}
   {% bootstrap_button button_type="reset" content="Reset" %} 
