@@ -26,7 +26,7 @@ def register(request):
         if form_user.is_valid():
             user = form_user.save()
             login(request, user)
-            messages.success(request, 'Register Successfull!')
+            messages.success(request, 'Register Successful!')
             return redirect('home')
     context = {
         "form_user": form_user,
@@ -69,6 +69,7 @@ def profile(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
+        print(profile_form)
 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
