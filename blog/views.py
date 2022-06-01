@@ -1,20 +1,16 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from blog.forms import CommentForm, PostForm
+from blog.models import Comment, Like, Post, PostView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from blog.models import Comment, Post, PostView
 # Create your views here.
-
-def home(request):
-    return render(request, 'blog/post_list.html')
 
 class PostListView(ListView):
     model = Post
-
-        
-
 
 # class PostDetailView(DetailView):
 #     model = Post
@@ -32,7 +28,7 @@ class PostListView(ListView):
 def detailView(request, slug):
     post =  get_object_or_404(Post, slug=slug)
     comments = Comment.objects.filter(post=post).order_by('-id')
-    print(len(comments))
+    
     if request.method == 'POST':
         comment_form = CommentForm(request.POST or None )
         if comment_form.is_valid():
@@ -43,6 +39,9 @@ def detailView(request, slug):
             return redirect('home')
     else:
         comment_form = CommentForm()
+        if request.user.is_authenticated:
+            PostView.objects.get_or_create(user=request.user, post=post) # for calculate single view count, add new row Postview
+ 
     context = {'post': post,
            'comments': comments,
            'comment_form' : comment_form,
@@ -50,12 +49,20 @@ def detailView(request, slug):
     return render(request, 'blog/post_detail.html', context)
 
 
-class PostAddView(CreateView):
+
+def likeView(request, pk):
+    post = get_object_or_404(Post, id=request.POST.get('post_id'))
+    Like.objects.get_or_create(user=request.user, post=post)
+    return HttpResponseRedirect(reverse('post_detail', args=[str(post.slug)]))
+
+
+class PostAddView(LoginRequiredMixin, CreateView):
+    login_url = '/users/login/'
     model= Post
     form_class= PostForm
     template_name= 'blog/post_create.html' 
     success_url = reverse_lazy("home")
-
+    @property
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)

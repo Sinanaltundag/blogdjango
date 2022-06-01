@@ -26,6 +26,7 @@ class Post(models.Model):
     slug = models.SlugField(null=False, unique=True)
     user = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    # likes = models.ManyToManyField(User, related_name="likes")
 
     def __str__(self):
         return self.title
@@ -42,6 +43,14 @@ class Post(models.Model):
         comments = self.comment_set.all()
         return comments.count()
 
+    def get_view_count(self):
+        return PostView.objects.filter(post=self).count()
+
+    def get_like_count(self):
+        return Like.objects.filter(post=self).count()
+
+
+
 class Comment(models.Model):
     time_stamp = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
@@ -55,7 +64,15 @@ class Like(models.Model):
     post= models.ForeignKey(Post, on_delete=models.CASCADE)
     user= models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.post.title
+
 class PostView(models.Model):
     time_stamp = models.DateTimeField(auto_now=True)
     post= models.ForeignKey(Post, on_delete=models.CASCADE)
     user= models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        # count = PostView.objects.filter(post=self.post).count()
+        return self.post.user
+        
