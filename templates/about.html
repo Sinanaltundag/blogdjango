@@ -1,0 +1,25 @@
+{% extends 'base.html' %} {% block content %} 
+{% load django_bootstrap5 %} {% load static %}
+
+<h1 class="text-center">About</h1>
+<div class="card mx-auto" style="width: 20rem;">
+    <img src="{% static 'blog/images/avatar2.jpg' %}" class="card-img-top" alt="photo">
+    <div class="card-body">
+        <h3>Hi, I'am Sinan</h3>
+      <p class="card-text">I’m currently learning Full-Stack Development Languages.</p>
+      <p class="card-text">I know JS, ReactJS, Python, Golang, Bootstrap, Sass.</p>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><a href="mailto:peykani@gmail.com">Send email: peykani@gmail.com</a></li>
+        <li class="list-group-item"><a href="https://github.com/Sinanaltundag" target="_blank">Github</a></li>
+        <li class="list-group-item"><a href="https://www.linkedin.com/in/sinan-altundag/" target="_blank">Linkedin</a></li>
+        <li class="list-group-item"><a href="https://www.sinanaltundag.design/" target="_blank">Portfolio</a></li>
+      </ul>
+      
+      
+      
+      
+    </div>
+  </div>
+
+
+{% endblock content %}

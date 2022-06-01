@@ -3,7 +3,6 @@ from django.contrib.auth.forms import  AuthenticationForm
 from django.contrib.auth import  login, logout
 from django.contrib import messages
 
-
 from django.contrib.auth.decorators import login_required
 
 from .forms import UpdateUserForm, UpdateProfileForm
@@ -48,29 +47,12 @@ def user_login(request):
 
     return render(request, 'users/user_login.html', {"form":form})
 
-# def user_profile(request):
-#     form_profile = UserProfileForm(request.POST, request.FILES)
-#     if form_profile.is_valid():
-#         profile = form_profile.save(commit=False)
-#         print(request.user.id)
-#         profile.user = request.user
-#         # profile.save()
-#         # messages.success(request, 'Update Successful!')
-#         # return redirect('home')
-    
-#     context = {
-#         "form_profile": form_profile
-#     }
-
-#     return render(request, 'users/profile.html', context)
-
-@login_required
+@login_required(login_url="/users/login/")
 def profile(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
         profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
-        print(profile_form)
-
+ 
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -81,3 +63,6 @@ def profile(request):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
+def aboutView(request):
+    return render(request, 'about.html')
