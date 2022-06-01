@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django import forms
 from blog.forms import CommentForm, PostForm
 from blog.models import Comment, Like, Post, PostView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -27,7 +28,7 @@ class PostListView(ListView):
 
 def detailView(request, slug):
     post =  get_object_or_404(Post, slug=slug)
-    comments = Comment.objects.filter(post=post).order_by('-id')
+    comments = Comment.objects.filter(post=post).order_by('-id') 
     
     if request.method == 'POST':
         comment_form = CommentForm(request.POST or None )

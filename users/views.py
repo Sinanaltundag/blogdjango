@@ -1,12 +1,9 @@
 from django.shortcuts import redirect, render
-from django.contrib.auth.forms import  AuthenticationForm
-from django.contrib.auth import  login, logout
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login, logout
 from django.contrib import messages
-
 from django.contrib.auth.decorators import login_required
-
 from .forms import UpdateUserForm, UpdateProfileForm
-
 from users.forms import UserForm
 # Create your views here.
 
@@ -39,20 +36,24 @@ def user_login(request):
 
     if form.is_valid():
         user = form.get_user()
-        
+
         if user:
             messages.success(request, "Login Successfull")
-            login(request,user)
+            login(request, user)
             return redirect('home')
 
-    return render(request, 'users/user_login.html', {"form":form})
+    return render(request, 'users/user_login.html', {"form": form})
 
+
+# 2 form in one page
+# if not logged in redirect to users/login page
 @login_required(login_url="/users/login/")
 def profile(request):
     if request.method == 'POST':
         user_form = UpdateUserForm(request.POST, instance=request.user)
-        profile_form = UpdateProfileForm(request.POST, request.FILES, instance=request.user.profile)
- 
+        profile_form = UpdateProfileForm(
+            request.POST, request.FILES, instance=request.user.profile)
+
         if user_form.is_valid() and profile_form.is_valid():
             user_form.save()
             profile_form.save()
@@ -63,6 +64,7 @@ def profile(request):
         profile_form = UpdateProfileForm(instance=request.user.profile)
 
     return render(request, 'users/profile.html', {'user_form': user_form, 'profile_form': profile_form})
+
 
 def aboutView(request):
     return render(request, 'about.html')
