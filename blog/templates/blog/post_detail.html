@@ -108,7 +108,12 @@
        <p>Comments</p>
        <ul>
        {% for comment in comments %}
-         <li>{{ comment }}</li>
+         <li>
+          <div class="d-flex justify-content-between">
+<div>{{ comment }}</div>
+<div>{{ comment.user }}</div>
+          </div> 
+           </li>
        {% endfor %}
          </ul>
       </li>
@@ -134,6 +139,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        {% comment %} aynı sayfada delete işlemi için form actiondan delete url çağırılır {% endcomment %}
         <form action="{% url 'post_delete' pk=post.pk %}" method="POST">
        {% csrf_token %}
        <button class="btn btn-danger">Delete</button>

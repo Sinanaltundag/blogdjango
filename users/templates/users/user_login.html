@@ -3,15 +3,16 @@
 
         <h3>Please Login</h3>
         <div class="mb-3">
-        <form action="{% url 'login' %}" method="post" class="form border p-3">
-            {% csrf_token %} 
-            {% bootstrap_form form %}
+            <form action="" method="post" >
+                {% csrf_token %}
+                {% bootstrap_form form %}
+              
+                {% bootstrap_button button_type="submit" content="Login" %}
+              </form>
 
-            {% bootstrap_button button_type="submit" content="Login" %}
-            <a href="{% url 'reset-password' %}">Forgot Password</a>         
-            <hr>
-            <p>Need an Account? <a href="{% url 'register' %}">Signup Now</a> </p>
-        </form>
+        <a href="{% url 'reset-password' %}">Forgot Password</a>         
+        <hr>
+        <p>Need an Account? <a href="{% url 'register' %}">Signup Now</a> </p>
     </div>
 
 {% endblock content %}

@@ -8,13 +8,14 @@
       <img
         src="{{ post.image.url }}"
         class="card-img-top"
+        style="max-height: 200px; width: auto; object-fit: cover;"
         alt="{{ post.title }}"
       />
       <div class="card-body mb-auto">
         <a href="{{ post.get_absolute_url }}" class="text-decoration-none">
           <h5 class="card-title">{{ post.title }}</h5>
         </a>
-        <p class="card-text">{{ post.content }}</p>
+        <p class="card-text">{{ post.contentShortener }}</p>
         
         <div class="d-flex gap-2">
           <div >
@@ -69,6 +70,7 @@
         </div>
       </div>
       <div class="card-body">
+      {% comment %} bu ana kadar geçen zamanı görüntüler {% endcomment %}
         <p>Posted <span>{{ post.publish_date|timesince }}</span> ago</p>
       </div>
     </div>

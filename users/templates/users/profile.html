@@ -9,6 +9,10 @@
 
 
 <img src="{{ user.profile.profile_pic.url }}" alt="Avatar" class="avatar">
+{% comment %} üstte src yolu belirtilirken modeldeki imaj dosyasının sonuna .url eklenir
+
+ alttaki formdan resim çekmek istiyorsak enctype="multipart/form-data" eklenir
+ {% endcomment %}
 <form action="" method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {% bootstrap_form user_form %}
