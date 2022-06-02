@@ -3,6 +3,7 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from PIL import Image
 
 # Create your models here.
 class Category(models.Model):
@@ -30,10 +31,16 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
+#  ana sayfada contentin bir kısmını görüntülemek için
+    def contentShortener(self):
+        if len(self.content) >100:
+            return self.content[:100]+"..."
+        else:
+            return self.content
+# linkler id yerine slug ile çağırma
     def get_absolute_url(self):
         return reverse("post_detail", kwargs={"slug": self.slug})
-
+# slug oluşturma
     def save(self, *args, **kwargs):  # new
         if not self.slug:
             self.slug = slugify(self.title)+str(uuid.uuid4())
@@ -48,6 +55,17 @@ class Post(models.Model):
 
     def get_like_count(self):
         return Like.objects.filter(post=self).count()
+
+# resim boyutunu düşürme
+    def save(self, *args, **kwargs):
+        super().save()
+
+        img = Image.open(self.image.path) 
+
+        if img.height > 400 or img.width > 400:
+            new_img = (400, 400)
+            img.thumbnail(new_img)
+            img.save(self.image.path)
 
 
 
@@ -73,6 +91,5 @@ class PostView(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        # count = PostView.objects.filter(post=self.post).count()
         return self.post.user
         
