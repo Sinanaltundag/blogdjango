@@ -11,3 +11,4 @@ urlpatterns = [
     path('post_delete/<int:pk>', PostDeleteView.as_view(), name="post_delete"),
     path('post_like/<int:pk>', likeView, name="post_like"),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# static ve media dosyalarını almak ve görüntülemek için üst satır eklenir

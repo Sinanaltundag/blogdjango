@@ -27,6 +27,7 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+#  site deploy edildiğinde domain buraya eklenir
 ALLOWED_HOSTS = []
 
 
@@ -111,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
+# türkiye saati
 TIME_ZONE = 'Europe/istanbul'
 
 USE_I18N = True
@@ -129,10 +130,11 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# MEDIA_ROOT = BASE_DIR / '/media/'
+# MEDIA formlardan upload edilen resim vb yüklenecek ve çekilecek ana dizinler
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+# login ve logout olduğunda yönlendirilecek sayfalar
 # LOGIN_REDIRECT_URL = "home"
 # LOGOUT_REDIRECT_URL = '/'
 

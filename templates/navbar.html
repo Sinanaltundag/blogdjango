@@ -27,7 +27,9 @@
     </ul>
 
     <ul class="navbar-nav ms-auto ">
-      {% if request.user.is_authenticated %} {% if request.user.is_superuser %}
+      
+      {% if request.user.is_authenticated %} 
+       {% if request.user.is_superuser %}
 
       <li class="nav-item active">
         <a class="nav-link" href="/admin">Admin</a>
@@ -38,11 +40,9 @@
         <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
       </li>
       <li class="nav-item active">
-        {% comment %} {% url 'add_blog' %} {% endcomment %}
         <a class="nav-link" href="{% url 'profile' %}">Profile</a>
       </li>
       <li class="nav-item active">
-        {% comment %} {% url 'add_blog' %} {% endcomment %}
         <a class="nav-link" href="{% url 'post_add'  %}">New Post</a>
       </li>
       {% else %}

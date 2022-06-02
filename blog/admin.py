@@ -4,7 +4,7 @@ from blog.models import Category, Comment, Like, Post, PostView
 
 # Register your models here.
 
-
+# admin panelindede slug oluşturmak için
 class PostAdmin(admin.ModelAdmin):
     list_display = ("title", "content",)
     prepopulated_fields = {"slug": ("title",)}  # new
