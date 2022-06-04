@@ -43,7 +43,7 @@ class Post(models.Model):
 # slug oluşturma
     def save(self, *args, **kwargs):  # new
         if not self.slug:
-            self.slug = slugify(self.title)+str(uuid.uuid4())
+            self.slug = slugify(self.title) + str(uuid.uuid4())
         return super().save(*args, **kwargs)
 
     def get_comment_count(self):
@@ -57,15 +57,15 @@ class Post(models.Model):
         return Like.objects.filter(post=self).count()
 
 # resim boyutunu düşürme
-    def save(self, *args, **kwargs):
-        super().save()
+    # def save(self, *args, **kwargs):
+    #     super().save()
 
-        img = Image.open(self.image.path) 
+    #     img = Image.open(self.image.path) 
 
-        if img.height > 400 or img.width > 400:
-            new_img = (400, 400)
-            img.thumbnail(new_img)
-            img.save(self.image.path)
+    #     if img.height > 400 or img.width > 400:
+    #         new_img = (400, 400)
+    #         img.thumbnail(new_img)
+    #         img.save(self.image.path)
 
 
 
