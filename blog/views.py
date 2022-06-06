@@ -1,3 +1,5 @@
+
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
@@ -46,8 +48,12 @@ def detailView(request, slug):
 #  post id sinde alıp Like modeline user ve post isimlerini kaydediyoruz, HttpResponseRedirect ile aynı sayfada kalmasını sağlayabiliriz
 def likeView(request, pk):
     post = get_object_or_404(Post, id=request.POST.get('post_id'))
-    Like.objects.get_or_create(user=request.user, post=post)
-    return HttpResponseRedirect(reverse('post_detail', args=[str(post.slug)]))
+    if request.user.is_authenticated:
+        Like.objects.get_or_create(user=request.user, post=post)
+        return HttpResponseRedirect(reverse('post_detail', args=[str(post.slug)]))
+    else:
+        messages.success(request, 'You need to login first to like this post')
+        return HttpResponseRedirect(reverse('post_detail', args=[str(post.slug)]))
 
 
 class PostAddView(LoginRequiredMixin, CreateView):
